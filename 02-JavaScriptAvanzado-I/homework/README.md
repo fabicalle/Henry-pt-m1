@@ -11,22 +11,22 @@ Determiná que será impreso en la consola, sin ejecutar el código.
 x = 1;
 var a = 5;
 var b = 10;
-var c = function(a, b, c) {
+var c = function(a, b, c) { // valores de a,b,c = 8,9,10
   var x = 10;
-  console.log(x);
-  console.log(a);
+  console.log(x);//10
+  console.log(a);//8
   var f = function(a, b, c) {
     b = a;
-    console.log(b);
+    console.log(b);//8
     b = c;
     var x = 5;
   }
   f(a,b,c);
-  console.log(b);
+  console.log(b);//9
 }
 c(8,9,10);
-console.log(b);
-console.log(x);
+console.log(b);//10
+console.log(x);//1
 ```
 
 ```javascript
@@ -35,7 +35,7 @@ console.log(baz);
 foo();
 function foo() { console.log('Hola!'); }
 var bar = 1;
-baz = 2;
+baz = 2;// no declarado en global va a crashear
 ```
 
 ```javascript
@@ -43,19 +43,19 @@ var instructor = "Tony";
 if(true) {
     var instructor = "Franco";
 }
-console.log(instructor);
+console.log(instructor);// franco x q al ser verdadero se cambia por el if
 ```
 
 ```javascript
 var instructor = "Tony";
-console.log(instructor);
+console.log(instructor);//Tony
 (function() {
    if(true) {
       var instructor = "Franco";
-      console.log(instructor);
+      console.log(instructor);//franco
    }
 })();
-console.log(instructor);
+console.log(instructor);//tony
 ```
 
 ```javascript
@@ -64,33 +64,33 @@ let pm = "Franco";
 if (true) {
     var instructor = "The Flash";
     let pm = "Reverse Flash";
-    console.log(instructor);
-    console.log(pm);
+    console.log(instructor);//the flash
+    console.log(pm);//reverse Flash
 }
-console.log(instructor);
-console.log(pm);
+console.log(instructor);//the flash
+console.log(pm);//franco
 ```
 ### Coerción de Datos
 
 ¿Cuál crees que será el resultado de la ejecución de estas operaciones?:
 
 ```javascript
-6 / "3"
-"2" * "3"
-4 + 5 + "px"
-"$" + 4 + 5
-"4" - 2
-"4px" - 2
-7 / 0
-{}[0]
-parseInt("09")
-5 && 2
-2 && 5
-5 || 0
-0 || 5
-[3]+[3]-[10]
-3>2>1
-[] == ![]
+6 / "3" //2
+"2" * "3" //6
+4 + 5 + "px"//9px
+"$" + 4 + 5//$45
+"4" - 2//2
+"4px" - 2//NaN
+7 / 0// infinito
+{}[0]//Undefined
+parseInt("09")//9
+5 && 2// 2
+2 && 5// 5
+5 || 0//5
+0 || 5//5
+[3]+[3]-[10]//(([3]+[3])= 33 -[10] = 23)
+3>2>1 //( (3>2)= true > 1)= false
+[] == ![]//true
 ```
 
 > Si te quedó alguna duda repasá con [este artículo](http://javascript.info/tutorial/object-conversion).
@@ -111,7 +111,7 @@ function test() {
    }
 }
 
-test();
+test();// al estar declarado despues el var a va a dar undefined y foo va a dar 2 por estar en el mismo contexto de la funcion invocada
 ```
 
 Y el de este código? :
@@ -127,7 +127,7 @@ function getFood(food) {
     return snack;
 }
 
-getFood(false);
+getFood(false);// al ser falso no tiene que definir snack y queda undefined
 ```
 
 
@@ -151,7 +151,7 @@ console.log(obj.prop.getFullname());
 
 var test = obj.prop.getFullname;
 
-console.log(test());
+console.log(test()); //el primer console log va a devolver Aurelio de Rosa por que esta declarado dentro del prop y el segundo va a devolver undefined porque this es obj global y esta vacío
 ```
 
 ### Event loop
@@ -166,5 +166,5 @@ function printing() {
    console.log(4);
 }
 
-printing();
+printing();// va a devolver consola console log 1, console log 4 luego el 3 y finalmente el 2 ya que pasa a resolver los de time en api y x tiempo de resolucion los manda  a la cola para ser devueltos 
 ```
